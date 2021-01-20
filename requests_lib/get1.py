@@ -1,11 +1,11 @@
 import requests
 
-url1 = 'https://www.naver.com/'
-url2 = 'https://news.naver.com/'    #get 요청이 거절되는 page
+url1:str = 'https://www.naver.com/'
+url2:str = 'https://news.naver.com/'    #get 요청이 거절되는 page
 
 #현재 사용중인 브라우저 확인 → http://www.useragentstring.com/
 #브라우저 종류 설정
-requests_headers = {
+requests_headers:dict = {
     'User-Agent': ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
      '(KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36'),
 }
