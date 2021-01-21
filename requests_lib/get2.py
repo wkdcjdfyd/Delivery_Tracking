@@ -8,7 +8,7 @@ requests_headers:dict = {
 }
 
 requests_params:dict = {      # 네이버뉴스 > 세계 > 아사아/호주 > 날짜 > 1페이지
-    'sid1' : '104',
+    'sid1' : '104',           # tuple 도 사용가능
     'sid2' : '231',
     'date' : '20210120',
     'page' : '1'
