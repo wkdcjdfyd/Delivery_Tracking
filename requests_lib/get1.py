@@ -17,7 +17,7 @@ except:
     res1 = requests.get(url1, headers = requests_headers)
     print('header 포함')
 
-print('status code :',res1.status_code)     #res1.ok 로도 확인 가능. 결과 : true or false)
+print('status code :', res1.status_code)     #res1.ok 로도 확인 가능. 결과 : true or false
 
 try:
     res2 = requests.get(url2)
@@ -26,4 +26,4 @@ except:
     res2 = requests.get(url2, headers = requests_headers)
     print('header 포함')
 
-print('status code :',res2.status_code)
+print('status code :', res2.status_code)
