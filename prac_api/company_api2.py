@@ -11,5 +11,5 @@ api_params: dict = {
 res = requests.get(base_url+api_url, params = api_params)
 data = json.loads(res.text)
 
-for x in range(len(data['Company'])):
-    print(data['Company'][x])
+for x in data['Company']:
+    print(x)
