@@ -21,7 +21,7 @@ def get_company_list() -> dict:
 
 if __name__ =="__main__":
     api_params['t_invoice'] = input('송장번호 : ')
-    name:str = input('택배사이름 : ')
+    name: str = input('택배사이름 : ')
 
     company_list: dict = get_company_list()
 
