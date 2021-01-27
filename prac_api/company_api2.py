@@ -12,11 +12,12 @@ res = requests.get(base_url+api_url, params = api_params)
 data = json.loads(res.text)
 
 print(type(res.text))
-print(type(data))
-
 print(res.text)
+
 print('\n')
+
+print(type(data))
 print(data)
 
-# for x in data['Company']:
-#    print(x)
+for x in data['Company']:
+   print(x)
