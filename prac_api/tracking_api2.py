@@ -27,7 +27,7 @@ def tracking() -> None:
     print(HEAD)
     print(TAIL)
     for x in reversed(data['trackingDetails']):
-        print(x['timeString'], x['where'], x['kind'].replace('\n', ' '))
+        print(x['timeString'], x['where'], x['kind'].replace('\n', ' '), x['telno'], x['telno2'])
     print(TAIL)
 
 if __name__ =="__main__":
