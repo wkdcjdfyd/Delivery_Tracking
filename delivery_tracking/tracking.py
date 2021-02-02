@@ -3,7 +3,7 @@ import json
 import requests
 #import sys
 
-def tracking(invoice: str, com_name: str) -> list:      #invoice = 송장번호, com_name = 택배사 이름
+def Tracking(invoice: str, com_name: str) -> list:      #invoice = 송장번호, com_name = 택배사 이름
     params: dict = {'t_key': ''}                        #secret key
     params['t_invoice'] = invoice
 
@@ -28,6 +28,6 @@ if __name__ =="__main__":
     invoice: str = input('송장번호 : ')
     com_name: str = input('택배사 이름 : ')
 
-    data: list = tracking(invoice, com_name)
+    data: list = Tracking(invoice, com_name)
 
     print(data)
