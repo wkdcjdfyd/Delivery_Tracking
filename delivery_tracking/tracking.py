@@ -1,7 +1,7 @@
 from get_company_list import Get_Company_List
 import json
 import requests
-#import sys
+import sys
 
 def Tracking(invoice: str, com_name: str) -> list:      #invoice = 송장번호, com_name = 택배사 이름
     params: dict = {'t_key': ''}                        #secret key
@@ -21,7 +21,7 @@ def Tracking(invoice: str, com_name: str) -> list:      #invoice = 송장번호,
     else:
         data: dict = json.loads(res.text)
         print(data['msg'])            #가져오지 못했을 경우 Status 객체를 반환하므로 그 안의 msg를 출력
-        #sys.exit()
+        sys.exit()
         return None
 
 if __name__ =="__main__":
