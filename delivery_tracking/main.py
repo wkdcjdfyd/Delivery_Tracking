@@ -1,35 +1,47 @@
-import requests
-import json
-import sys
-from get_company_list import Get_Company_List
-from get_location import Get_Location
-from tracking import Tracking
+from get_company_list import get_company_list, GetCompanyListError
+from get_tracking_details import get_tracking_details, GetTrackingDetailsError
+from get_location import get_location, GetLocationError, NoSearchResultError
+from typing import List, Tuple
 
 if __name__ =="__main__":
     invoice: str = input('송장번호 : ')
     com_name: str = input('택배사 이름 : ')
 
-    data: list = Tracking(invoice, com_name)       #date는 tracking_details list\
+    try:
+        data: List[str] = get_tracking_details(invoice, com_name)       #data는 tracking details list
+    except GetCompanyListError as e:
+        print(e)
+    except GetTrackingDetailsError as e:
+        print(e)
+
 
     for x in data:
         if not x['telno']:
-            print('전화번호가 없을 때')
-            print(com_name+x['where'])
-            location: tuple = Get_Location(com_name+x['where'])
-            if not location: #택배사 이름 + 경유지 이름으로 검색결과가 없을 경우
-                print('위치를 찾지 못했습니다')
+            try:
+                location: Tuple[str, str] = get_location(com_name + x['where'])  #전화번호가 없어서 택배사 이름 + 경유지 이름로 검색
+            except GetLocationError as e:
+                print(e)
+            except NoSearchResultError as e:
+                print(e)
         else:
-            if '010' in x['telno']:
-                print('전화번호에 010 포함일 때')
-                print(com_name+x['where'])
-                location: tuple = Get_Location(com_name+x['where'])
+            if '010' in x['telno']:               #전화번호가 있지만 핸드폰 번호일 경우
+                try:
+                    location: Tuple[str, str] = get_location(com_name + x['where'])
+                except GetLocationError as e:
+                    print(e)
+                except NoSearchResultError as e:
+                    print(e)
             else:
-                print('전화번호로 검색')
-                print(x['telno'])
-                location: tuple = Get_Location(x['telno'])
-                if not location:    #전화번호로 위치를 찾지 못했을 경우
-                    print('전화번호로 검색을 실패해서 택배사 이름 + 경유지 이름로 검색')
-                    print(com_name+x['where'])
-                    location: tuple = Get_Location(com_name+x['where'])
+                try:
+                    location: Tuple[str, str] = get_location(x['telno'])
+                except GetLocationError as e:
+                    print(e)
+                except NoSearchResultError as e:
+                    try:
+                        location: Tuple[str, str] = get_location(com_name + x['where'])
+                    except GetLocationError as e:
+                        print(e)
+                    except NoSearchResultError as e:
+                        print(e)
         print(location)
         print('\n')
