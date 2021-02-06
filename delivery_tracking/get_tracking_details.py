@@ -3,10 +3,13 @@ from typing import List
 import json
 import requests
 
+
 class GetTrackingDetailsError(Exception):
     pass
 
-def get_tracking_details(invoice: str, com_name: str) -> List[str]: # invoice = 송장번호, com_name = 택배사 이름
+
+# invoice = 송장번호, com_name = 택배사 이름
+def get_tracking_details(invoice: str, com_name: str) -> List[str]:
     params: dict = {'t_key': ''}  # secret key
     params['t_invoice'] = invoice
 
@@ -16,13 +19,15 @@ def get_tracking_details(invoice: str, com_name: str) -> List[str]: # invoice = 
         if x['Name'] == com_name:
             params['t_code'] = x['Code']
 
-    res = requests.get('http://info.sweettracker.co.kr/api/v1/trackingInfo', params=params)
+    res = requests.get(
+        'http://info.sweettracker.co.kr/api/v1/trackingInfo', params=params)
     if res.status_code == 200:  # 정상적으로 정보를 가져왔을 경우
         data: dict = json.loads(res.text)
         return data['trackingDetails']
     else:
         data: dict = json.loads(res.text)
-        raise GetTrackingDetailsError(data['msg'])    # 가져오지 못했을 경우 Status 객체를 반환하므로 그 안의 msg를 출력
+        # 가져오지 못했을 경우 Status 객체를 반환하므로 그 안의 msg를 출력
+        raise GetTrackingDetailsError(data['msg'])
 
 
 if __name__ == "__main__":
